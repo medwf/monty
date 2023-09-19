@@ -8,3 +8,5 @@
 - take line and delete space from beginning and divide argumment
 - take functions from Simple shell project it save time.
 - make function that open file and another one print error.
+- start work on push
+- add global struct

@@ -1,4 +1,5 @@
 #include "monty.h"
+global_struct gs;
 /**
  * print_error - a finction that print error
  * @err: a pointer to string.
@@ -17,29 +18,42 @@ void print_error(char *err)
  */
 int main(int argc, char **argv)
 {
-    FILE *file;
     char line[1024], **array = NULL;
     unsigned int i, count_line = 1;
+    instruction_t in[] = {
+        {"push", hundle_push},
+        {NULL, NULL},
+    };
 
     if (argc == 2)
-        file = is_open(argv[1]);
+        gs.file = is_open(argv[1]);
     else
         print_error("USAGE: monty file");
 
-    while (fgets(line, sizeof(line), file) != NULL)
+    gs.head = NULL;
+    while (fgets(line, sizeof(line), gs.file) != NULL)
     {
-        printf("\nL %d: %s =", count_line, line);
-        /* delete space at beggining and divide arg*/
         array = divide_arg(line);
-        i = 0;
-        while (array[i])
+        if (strcmp(array[0], "push") == 0)
         {
-            printf("- arg %d = -> %s", i, array[i]);
-            i++;
+            if (!(array[1] && check_number(array[1])))
+            {
+                fprintf(stderr, "L%d: usage: push integer\n", count_line);
+                fclose(gs.file);
+                exit(EXIT_FAILURE);
+            }
+        }
+        for (i = 0; in[i].opcode; i++)
+        {
+            if (strcmp(array[0], in[i].opcode) == 0)
+            {
+                in[i].f(&gs.head, count_line);
+                break;
+            }
         }
         free_array(array), count_line++;
     }
 
-    fclose(file);
+    fclose(gs.file);
     return (EXIT_SUCCESS);
 }

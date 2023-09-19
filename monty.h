@@ -1,18 +1,11 @@
 #ifndef MONTY_H
 #define MONTY_H
+
 /* Header file  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-/* prototype */
-/* in --- fun_helper0 you will found ---*/
-char **divide_arg(char *line);
-void dte_space(char *str);
-FILE *is_open(char *file_name);
-/* in --- fun_allocate you will found ---*/
-void free_array(char **array);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+#include <ctype.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -44,4 +37,32 @@ typedef struct instruction_s
     void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-#endif /* monty.h */
+/* Global struct */
+/**
+ * struct structure_global - data for stack
+ * @int_to_push: an integer for push
+ * @head: a pointer to linked list.
+ */
+typedef struct structure_global
+{
+    FILE *file;
+    int int_to_push;
+    stack_t *head;
+} global_struct;
+extern global_struct gs;
+
+/* prototype */
+/* in --- fun_helper0 you will found ---*/
+char **divide_arg(char *line);
+void dte_space(char *str);
+FILE *is_open(char *file_name);
+int check_number(char *number);
+
+/* in --- fun_allocate you will found ---*/
+void free_array(char **array);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
+/* in --- stacj_opcode you will found --- */
+void hundle_push(stack_t **stack, unsigned int line_number);
+
+#endif

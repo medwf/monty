@@ -1,4 +1,25 @@
 #include "monty.h"
+
+/**
+ * check_number - a function that check number
+ * @number: a string of numbers
+ * Return: 1 on Success or 0
+ */
+int check_number(char *number)
+{
+    int i = 0;
+    if (atoi(number) <= 0)
+        i = 1;
+
+    while (number[i])
+    {
+        if (!isdigit(number[i]))
+            return (0);
+        i++;
+    }
+    gs.int_to_push = atoi(number);
+    return (1);
+}
 /**
  * is_open - a function that check if file exist or not
  * @ac: the number of argumant.
