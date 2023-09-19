@@ -1,8 +1,19 @@
 #ifndef MONTY_H
 #define MONTY_H
-/* prototye */
+/* Header file  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+/* prototype */
+/* in --- fun_helper0 you will found ---*/
+char **divide_arg(char *line);
+void dte_space(char *str);
+FILE *is_open(char *file_name);
+/* in --- fun_allocate you will found ---*/
+void free_array(char **array);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer

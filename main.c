@@ -1,5 +1,13 @@
 #include "monty.h"
-#include <stdio.h>
+/**
+ * print_error - a finction that print error
+ * @err: a pointer to string.
+ */
+void print_error(char *err)
+{
+    fprintf(stderr, "%s\n", err);
+    exit(EXIT_FAILURE);
+}
 /**
  * main - Entry points
  * Description: create an interpreter for Monty ByteCodes files.
@@ -10,34 +18,28 @@
 int main(int argc, char **argv)
 {
     FILE *file;
-    char line[1024];
-    int L = 0;
+    char line[1024], **array = NULL;
+    unsigned int i, count_line = 1;
 
-    if (argc != 2)
-    {
-        perror("USAGE: monty file");
-        return (1);
-    }
-
-    file = fopen(argv[1], "r");
-    if (!file)
-    {
-        perror("Error open file");
-        return (1);
-    }
+    if (argc == 2)
+        file = is_open(argv[1]);
+    else
+        print_error("USAGE: monty file");
 
     while (fgets(line, sizeof(line), file) != NULL)
     {
-        L++;
-        printf("%d --> %s", L, line);
+        printf("\nL %d: %s =", count_line, line);
+        /* delete space at beggining and divide arg*/
+        array = divide_arg(line);
+        i = 0;
+        while (array[i])
+        {
+            printf("- arg %d = -> %s", i, array[i]);
+            i++;
+        }
+        free_array(array), count_line++;
     }
-    /*if (!rd)
-    {
-        perror("Error Can't read from file");
-        fclose(file);
-        return (1);
-    }*/
 
     fclose(file);
-    return (0);
+    return (EXIT_SUCCESS);
 }
