@@ -78,10 +78,10 @@ char **divide_arg(char *line)
 		{
 			if (num_token == 0)
 				array = _realloc(array, sizeof(char *) * 2,
-						sizeof(char *) * (num_token + 2));
+								 sizeof(char *) * (num_token + 2));
 			if (num_token)
 				array = _realloc(array, sizeof(char *) * ((num_token - 1) + 2),
-						sizeof(char *) * (num_token + 2));
+								 sizeof(char *) * (num_token + 2));
 			if (!array)
 			{
 				free_array(array);
@@ -109,6 +109,7 @@ void process(char **array, unsigned int line_number)
 		{"push", handle_push},
 		{"pall", handle_pall},
 		{"pint", handle_pint},
+		{"pop", handle_pop},
 		{NULL, NULL},
 	};
 

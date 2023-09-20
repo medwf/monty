@@ -63,3 +63,29 @@ void handle_pint(stack_t **stack, unsigned int line_number)
 	}
 	fprintf(stdout, "%d\n", (*stack)->n);
 }
+/**
+ * handle_pop - a function that pushes an element to the stack
+ * @stack: a double pointer to linked list
+ * @line_number: an integer represent line number
+ */
+void handle_pop(stack_t **stack, unsigned int line_number)
+{
+	if (!*stack)
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
+		free_stack(gs.head), free_array(gs.array);
+		exit(EXIT_FAILURE);
+	}
+
+	if (!(*stack)->next)
+	{
+		free(*stack);
+		*stack = NULL;
+	}
+	else
+	{
+		*stack = (*stack)->next;
+		free((*stack)->prev);
+		(*stack)->prev = NULL;
+	}
+}
