@@ -15,4 +15,6 @@
 
 - handle push function.
 - handle pall function.
-- fic problem newline and empty line
+- fix problem newline and empty line
+- add function handle pint
+- handle nop, and #.
