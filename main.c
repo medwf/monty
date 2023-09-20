@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	gs.head = NULL, gs.array = NULL;
 	while (fgets(line, sizeof(line), gs.file) != NULL)
 	{
-		line[strlen(line) - 1] = '\0', divide_arg(line);
+		line[strlen(line) - 1] = '\0', gs.array = divide_arg(line);
 		if (gs.array)
 		{
 			if (strcmp(gs.array[0], "push") == 0)
@@ -37,14 +37,14 @@ int main(int argc, char **argv)
 				if (!(gs.array[1] && check_number(gs.array[1])))
 				{
 					fprintf(stderr, "L%d: usage: push integer\n", count_line);
-					free_stack(), free_array();
+					free_stack(gs.head), free_array(gs.array);
 					exit(EXIT_FAILURE);
 				}
 			}
-			process(count_line);
+			process(gs.array, count_line);
 		}
 		count_line++;
 	}
-	free_stack();
+	free_stack(gs.head);
 	return (EXIT_SUCCESS);
 }

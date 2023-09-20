@@ -64,43 +64,45 @@ void dte_space(char *str)
 char **divide_arg(char *line)
 {
 	int num_token = 0;
-	char *token;
+	char *token, **array = NULL;
 
 	dte_space(line);
 	if (strlen(line))
 	{
-		gs.array = malloc(sizeof(char *) * 2);
-		gs.array[0] = NULL;
-		gs.array[1] = NULL;
+		array = malloc(sizeof(char *) * 2);
+		array[0] = NULL;
+		array[1] = NULL;
 
 		token = strtok(line, " \t\n");
 		while (token && num_token < 2)
 		{
 			if (num_token == 0)
-				gs.array = _realloc(gs.array, sizeof(char *) * 2,
-									sizeof(char *) * (num_token + 2));
+				array = _realloc(array, sizeof(char *) * 2,
+						sizeof(char *) * (num_token + 2));
 			if (num_token)
-				gs.array = _realloc(gs.array, sizeof(char *) * ((num_token - 1) + 2),
-									sizeof(char *) * (num_token + 2));
-			if (!gs.array)
+				array = _realloc(array, sizeof(char *) * ((num_token - 1) + 2),
+						sizeof(char *) * (num_token + 2));
+			if (!array)
 			{
-				free_array(), free_stack();
+				free_array(array);
 				fprintf(stderr, "Error: malloc failed\n");
 				exit(EXIT_FAILURE);
 			}
-			gs.array[num_token] = malloc(sizeof(char) * (strlen(token) + 1));
-			strcpy(gs.array[num_token++], token);
+			array[num_token] = malloc(sizeof(char) * (strlen(token) + 1));
+			strcpy(array[num_token++], token);
 			token = strtok(NULL, " \t\n");
 		}
-		gs.array[num_token] = NULL;
+		array[num_token] = NULL;
+		return (array);
 	}
 	return (NULL);
 }
 /**
  * process - a function that check process
+ * @array: a double pointer (process command)
  * @line_number: line number.
  */
-void process(unsigned int line_number)
+void process(char **array, unsigned int line_number)
 {
 	int i;
 	instruction_t in[] = {
@@ -112,7 +114,7 @@ void process(unsigned int line_number)
 
 	for (i = 0; in[i].opcode; i++)
 	{
-		if (strcmp(gs.array[0], in[i].opcode) == 0)
+		if (strcmp(array[0], in[i].opcode) == 0)
 		{
 			in[i].f(&gs.head, line_number);
 			break;
@@ -120,9 +122,9 @@ void process(unsigned int line_number)
 	}
 	if (!in[i].opcode)
 	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, gs.array[0]);
-		free_stack(), free_array();
+		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, array[0]);
+		free_stack(gs.head), free_array(array);
 		exit(EXIT_FAILURE);
 	}
-	free_array();
+	free_array(array);
 }

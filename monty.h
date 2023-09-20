@@ -60,12 +60,12 @@ char **divide_arg(char *line);
 void dte_space(char *str);
 void is_open(char *file_name);
 int check_number(char *number);
-void process(unsigned int line_number);
+void process(char **array, unsigned int line_number);
 
 /* in --- fun_allocate you will found ---*/
-void free_array(void);
+void free_array(char **array);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-void free_stack(void);
+void free_stack(stack_t *h);
 
 /* in --- stacj_opcode you will found --- */
 void handle_push(stack_t **stack, unsigned int line_number);

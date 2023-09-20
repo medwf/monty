@@ -1,22 +1,23 @@
 #include "monty.h"
 /**
  * free_array - a function free argumment.
+ * @array: a pointer to structure input
  */
-void free_array(void)
+void free_array(char **array)
 {
 	int i = 0;
 
 	/* if av == NULL dont free and return*/
-	if (!gs.array)
+	if (!array)
 		return;
 	/* free av */
-	while (gs.array[i])
+	while (array[i])
 	{
-		free(gs.array[i]);
-		gs.array[i] = NULL;
+		free(array[i]);
+		array[i] = NULL;
 		i++;
 	}
-	free(gs.array);
+	free(array);
 }
 /**
  * _realloc - reallocates a memory block using malloc and free.
@@ -64,17 +65,18 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 }
 /**
  * free_stack - free stack
+ * @h: a pointer to linked list
  */
-void free_stack(void)
+void free_stack(stack_t *h)
 {
-	if (gs.head)
+	if (h)
 	{
-		while (gs.head->next)
+		while (h->next)
 		{
-			gs.head = gs.head->next;
-			free(gs.head->prev);
+			h = h->next;
+			free(h->prev);
 		}
-		free(gs.head);
+		free(h);
 	}
 	fclose(gs.file);
 }

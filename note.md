@@ -16,6 +16,3 @@
 - handle push function.
 - handle pall function.
 - fic problem newline and empty line
-- fix betty, add process function.
-- add task 1, problem free array
-- add array to global struct
