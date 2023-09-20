@@ -58,6 +58,7 @@ char **divide_arg(char *line);
 void dte_space(char *str);
 void is_open(char *file_name);
 int check_number(char *number);
+void process(char **array, unsigned int line_number);
 
 /* in --- fun_allocate you will found ---*/
 void free_array(char **array);

@@ -19,12 +19,7 @@ void print_error(char *err)
 int main(int argc, char **argv)
 {
 	char line[100], **array = NULL;
-	unsigned int i, count_line = 1;
-	instruction_t in[] = {
-		{"push", handle_push},
-		{"pall", handle_pall},
-		{NULL, NULL},
-	};
+	unsigned int count_line = 1;
 
 	if (argc == 2)
 		is_open(argv[1]);
@@ -46,21 +41,7 @@ int main(int argc, char **argv)
 					exit(EXIT_FAILURE);
 				}
 			}
-			for (i = 0; in[i].opcode; i++)
-			{
-				if (strcmp(array[0], in[i].opcode) == 0)
-				{
-					in[i].f(&gs.head, count_line);
-					break;
-				}
-			}
-			if (!in[i].opcode)
-			{
-				fprintf(stderr, "L%d: unknown instruction %s\n", count_line, array[0]);
-				free_stack(gs.head), free_array(array);
-				exit(EXIT_FAILURE);
-			}
-			free_array(array);
+			process(array, count_line);
 		}
 		count_line++;
 	}

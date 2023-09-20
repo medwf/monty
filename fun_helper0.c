@@ -97,3 +97,33 @@ char **divide_arg(char *line)
 	}
 	return (NULL);
 }
+/**
+ * process - a function that check process
+ * @array: a double pointer (process command)
+ * @line_number: line number.
+ */
+void process(char **array, unsigned int line_number)
+{
+	int i;
+	instruction_t in[] = {
+		{"push", handle_push},
+		{"pall", handle_pall},
+		{NULL, NULL},
+	};
+
+	for (i = 0; in[i].opcode; i++)
+	{
+		if (strcmp(array[0], in[i].opcode) == 0)
+		{
+			in[i].f(&gs.head, line_number);
+			break;
+		}
+	}
+	if (!in[i].opcode)
+	{
+		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, array[0]);
+		free_stack(gs.head), free_array(array);
+		exit(EXIT_FAILURE);
+	}
+	free_array(array);
+}

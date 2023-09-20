@@ -16,3 +16,5 @@
 - handle push function.
 - handle pall function.
 - fic problem newline and empty line
+- fix betty, add process function.
+
