@@ -30,13 +30,13 @@ int main(int argc, char **argv)
 	while (fgets(line, sizeof(line), gs.file) != NULL)
 	{
 		line[strlen(line) - 1] = '\0', gs.array = divide_arg(line);
-		if (strcmp(gs.array[0], "nop") == 0 || gs.array[0][0] == '#')
-		{
-			free_array(gs.array);
-			continue;
-		}
 		if (gs.array)
 		{
+			if (strcmp(gs.array[0], "nop") == 0 || gs.array[0][0] == '#')
+			{
+				free_array(gs.array);
+				continue;
+			}
 			if (strcmp(gs.array[0], "push") == 0)
 			{
 				if (!(gs.array[1] && check_number(gs.array[1])))
