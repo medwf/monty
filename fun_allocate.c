@@ -78,4 +78,5 @@ void free_stack(stack_t *h)
 		}
 		free(h);
 	}
+	fclose(gs.file);
 }

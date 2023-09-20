@@ -18,7 +18,7 @@ void print_error(char *err)
  */
 int main(int argc, char **argv)
 {
-	char line[1024], **array = NULL;
+	char line[100], **array = NULL;
 	unsigned int i, count_line = 1;
 	instruction_t in[] = {
 		{"push", handle_push},
@@ -27,35 +27,43 @@ int main(int argc, char **argv)
 	};
 
 	if (argc == 2)
-		gs.file = is_open(argv[1]);
+		is_open(argv[1]);
 	else
 		print_error("USAGE: monty file");
 
 	gs.head = NULL;
 	while (fgets(line, sizeof(line), gs.file) != NULL)
 	{
-		array = divide_arg(line);
-		if (strcmp(array[0], "push") == 0)
+		line[strlen(line) - 1] = '\0', array = divide_arg(line);
+		if (array)
 		{
-			if (!(array[1] && check_number(array[1])))
+			if (strcmp(array[0], "push") == 0)
 			{
-				fprintf(stderr, "L%d: usage: push integer\n", count_line);
-				fclose(gs.file);
+				if (!(array[1] && check_number(array[1])))
+				{
+					fprintf(stderr, "L%d: usage: push integer\n", count_line);
+					free_stack(gs.head), free_array(array);
+					exit(EXIT_FAILURE);
+				}
+			}
+			for (i = 0; in[i].opcode; i++)
+			{
+				if (strcmp(array[0], in[i].opcode) == 0)
+				{
+					in[i].f(&gs.head, count_line);
+					break;
+				}
+			}
+			if (!in[i].opcode)
+			{
+				fprintf(stderr, "L%d: unknown instruction %s\n", count_line, array[0]);
+				free_stack(gs.head), free_array(array);
 				exit(EXIT_FAILURE);
 			}
+			free_array(array);
 		}
-		for (i = 0; in[i].opcode; i++)
-		{
-			if (strcmp(array[0], in[i].opcode) == 0)
-			{
-				in[i].f(&gs.head, count_line);
-				break;
-			}
-		}
-		free_array(array), count_line++;
+		count_line++;
 	}
-
-	fclose(gs.file);
 	free_stack(gs.head);
 	return (EXIT_SUCCESS);
 }

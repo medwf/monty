@@ -27,17 +27,14 @@ int check_number(char *number)
  * Return: a pointer that open file or
  *             EXIT_FAILURE
  */
-FILE *is_open(char *file_name)
+void is_open(char *file_name)
 {
-	FILE *file;
-
-	file = fopen(file_name, "r");
-	if (!file)
+	gs.file = fopen(file_name, "r");
+	if (!gs.file)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", file_name);
 		exit(EXIT_FAILURE);
 	}
-	return (file);
 }
 /**
  * dte_space - delete wait space from stored (input string)
@@ -70,29 +67,33 @@ char **divide_arg(char *line)
 	char *token, **array = NULL;
 
 	dte_space(line);
-	array = malloc(sizeof(char *) * 2);
-	array[0] = NULL;
-	array[1] = NULL;
-
-	token = strtok(line, " \t\n");
-	while (token)
+	if (strlen(line))
 	{
-		if (num_token == 0)
-			array = _realloc(array, sizeof(char *) * 2,
-					sizeof(char *) * (num_token + 2));
-		if (num_token)
-			array = _realloc(array, sizeof(char *) * ((num_token - 1) + 2),
-					sizeof(char *) * (num_token + 2));
-		if (!array)
+		array = malloc(sizeof(char *) * 2);
+		array[0] = NULL;
+		array[1] = NULL;
+
+		token = strtok(line, " \t\n");
+		while (token && num_token < 2)
 		{
-			free_array(array);
-			fprintf(stderr, "Error: malloc failed\n");
-			exit(EXIT_FAILURE);
+			if (num_token == 0)
+				array = _realloc(array, sizeof(char *) * 2,
+								 sizeof(char *) * (num_token + 2));
+			if (num_token)
+				array = _realloc(array, sizeof(char *) * ((num_token - 1) + 2),
+								 sizeof(char *) * (num_token + 2));
+			if (!array)
+			{
+				free_array(array);
+				fprintf(stderr, "Error: malloc failed\n");
+				exit(EXIT_FAILURE);
+			}
+			array[num_token] = malloc(sizeof(char) * (strlen(token) + 1));
+			strcpy(array[num_token++], token);
+			token = strtok(NULL, " \t\n");
 		}
-		array[num_token] = malloc(sizeof(char) * (strlen(token) + 1));
-		strcpy(array[num_token++], token);
-		token = strtok(NULL, " \t\n");
+		array[num_token] = NULL;
+		return (array);
 	}
-	array[num_token] = NULL;
-	return (array);
+	return (NULL);
 }

@@ -15,3 +15,4 @@
 
 - handle push function.
 - handle pall function.
+- fic problem newline and empty line

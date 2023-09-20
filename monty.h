@@ -56,7 +56,7 @@ extern global_struct gs;
 /* in --- fun_helper0 you will found ---*/
 char **divide_arg(char *line);
 void dte_space(char *str);
-FILE *is_open(char *file_name);
+void is_open(char *file_name);
 int check_number(char *number);
 
 /* in --- fun_allocate you will found ---*/
