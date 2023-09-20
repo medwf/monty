@@ -10,3 +10,8 @@
 - make function that open file and another one print error.
 - start work on push
 - add global struct
+
+# 9/20/2023
+
+- handle push function.
+- handle pall function.

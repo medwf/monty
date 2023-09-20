@@ -18,9 +18,9 @@
  */
 typedef struct stack_s
 {
-    int n;
-    struct stack_s *prev;
-    struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -33,21 +33,22 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-    char *opcode;
-    void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 /* Global struct */
 /**
  * struct structure_global - data for stack
  * @int_to_push: an integer for push
+ * @file: a pointer to file.
  * @head: a pointer to linked list.
  */
 typedef struct structure_global
 {
-    FILE *file;
-    int int_to_push;
-    stack_t *head;
+	FILE *file;
+	int int_to_push;
+	stack_t *head;
 } global_struct;
 extern global_struct gs;
 
@@ -61,8 +62,10 @@ int check_number(char *number);
 /* in --- fun_allocate you will found ---*/
 void free_array(char **array);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void free_stack(stack_t *h);
 
 /* in --- stacj_opcode you will found --- */
-void hundle_push(stack_t **stack, unsigned int line_number);
+void handle_push(stack_t **stack, unsigned int line_number);
+void handle_pall(stack_t **stack, unsigned int line_number);
 
 #endif
