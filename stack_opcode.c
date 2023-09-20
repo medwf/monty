@@ -16,6 +16,7 @@ void handle_push(stack_t **stack, unsigned int line_number)
 	if (!new)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		free_stack(), free_array();
 		exit(EXIT_FAILURE);
 	}
 
@@ -38,7 +39,7 @@ void handle_push(stack_t **stack, unsigned int line_number)
 void handle_pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *prnt = NULL;
-	(void) line_number;
+	(void)line_number;
 
 	prnt = *stack;
 
@@ -47,4 +48,20 @@ void handle_pall(stack_t **stack, unsigned int line_number)
 		fprintf(stdout, "%d\n", prnt->n);
 		prnt = prnt->next;
 	}
+}
+/**
+ * handle_pint - a function prints the value at the top of the stack,
+ *                   followed by a new line.
+ * @stack: a double pointer to linked list
+ * @line_number: an integer represent line number
+ */
+void handle_pint(stack_t **stack, unsigned int line_number)
+{
+	if (!*stack)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+		free_stack(), free_array();
+		exit(EXIT_FAILURE);
+	}
+	fprintf(stdout, "%d\n", (*stack)->n);
 }

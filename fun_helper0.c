@@ -64,56 +64,55 @@ void dte_space(char *str)
 char **divide_arg(char *line)
 {
 	int num_token = 0;
-	char *token, **array = NULL;
+	char *token;
 
 	dte_space(line);
 	if (strlen(line))
 	{
-		array = malloc(sizeof(char *) * 2);
-		array[0] = NULL;
-		array[1] = NULL;
+		gs.array = malloc(sizeof(char *) * 2);
+		gs.array[0] = NULL;
+		gs.array[1] = NULL;
 
 		token = strtok(line, " \t\n");
 		while (token && num_token < 2)
 		{
 			if (num_token == 0)
-				array = _realloc(array, sizeof(char *) * 2,
-								 sizeof(char *) * (num_token + 2));
+				gs.array = _realloc(gs.array, sizeof(char *) * 2,
+									sizeof(char *) * (num_token + 2));
 			if (num_token)
-				array = _realloc(array, sizeof(char *) * ((num_token - 1) + 2),
-								 sizeof(char *) * (num_token + 2));
-			if (!array)
+				gs.array = _realloc(gs.array, sizeof(char *) * ((num_token - 1) + 2),
+									sizeof(char *) * (num_token + 2));
+			if (!gs.array)
 			{
-				free_array(array);
+				free_array(), free_stack();
 				fprintf(stderr, "Error: malloc failed\n");
 				exit(EXIT_FAILURE);
 			}
-			array[num_token] = malloc(sizeof(char) * (strlen(token) + 1));
-			strcpy(array[num_token++], token);
+			gs.array[num_token] = malloc(sizeof(char) * (strlen(token) + 1));
+			strcpy(gs.array[num_token++], token);
 			token = strtok(NULL, " \t\n");
 		}
-		array[num_token] = NULL;
-		return (array);
+		gs.array[num_token] = NULL;
 	}
 	return (NULL);
 }
 /**
  * process - a function that check process
- * @array: a double pointer (process command)
  * @line_number: line number.
  */
-void process(char **array, unsigned int line_number)
+void process(unsigned int line_number)
 {
 	int i;
 	instruction_t in[] = {
 		{"push", handle_push},
 		{"pall", handle_pall},
+		{"pint", handle_pint},
 		{NULL, NULL},
 	};
 
 	for (i = 0; in[i].opcode; i++)
 	{
-		if (strcmp(array[0], in[i].opcode) == 0)
+		if (strcmp(gs.array[0], in[i].opcode) == 0)
 		{
 			in[i].f(&gs.head, line_number);
 			break;
@@ -121,9 +120,9 @@ void process(char **array, unsigned int line_number)
 	}
 	if (!in[i].opcode)
 	{
-		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, array[0]);
-		free_stack(gs.head), free_array(array);
+		fprintf(stderr, "L%d: unknown instruction %s\n", line_number, gs.array[0]);
+		free_stack(), free_array();
 		exit(EXIT_FAILURE);
 	}
-	free_array(array);
+	free_array();
 }

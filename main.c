@@ -18,7 +18,7 @@ void print_error(char *err)
  */
 int main(int argc, char **argv)
 {
-	char line[100], **array = NULL;
+	char line[100];
 	unsigned int count_line = 1;
 
 	if (argc == 2)
@@ -26,25 +26,25 @@ int main(int argc, char **argv)
 	else
 		print_error("USAGE: monty file");
 
-	gs.head = NULL;
+	gs.head = NULL, gs.array = NULL;
 	while (fgets(line, sizeof(line), gs.file) != NULL)
 	{
-		line[strlen(line) - 1] = '\0', array = divide_arg(line);
-		if (array)
+		line[strlen(line) - 1] = '\0', divide_arg(line);
+		if (gs.array)
 		{
-			if (strcmp(array[0], "push") == 0)
+			if (strcmp(gs.array[0], "push") == 0)
 			{
-				if (!(array[1] && check_number(array[1])))
+				if (!(gs.array[1] && check_number(gs.array[1])))
 				{
 					fprintf(stderr, "L%d: usage: push integer\n", count_line);
-					free_stack(gs.head), free_array(array);
+					free_stack(), free_array();
 					exit(EXIT_FAILURE);
 				}
 			}
-			process(array, count_line);
+			process(count_line);
 		}
 		count_line++;
 	}
-	free_stack(gs.head);
+	free_stack();
 	return (EXIT_SUCCESS);
 }

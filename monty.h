@@ -43,12 +43,14 @@ typedef struct instruction_s
  * @int_to_push: an integer for push
  * @file: a pointer to file.
  * @head: a pointer to linked list.
+ * @array: a doule pointer (command process).
  */
 typedef struct structure_global
 {
 	FILE *file;
 	int int_to_push;
 	stack_t *head;
+	char **array;
 } global_struct;
 extern global_struct gs;
 
@@ -58,15 +60,16 @@ char **divide_arg(char *line);
 void dte_space(char *str);
 void is_open(char *file_name);
 int check_number(char *number);
-void process(char **array, unsigned int line_number);
+void process(unsigned int line_number);
 
 /* in --- fun_allocate you will found ---*/
-void free_array(char **array);
+void free_array(void);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-void free_stack(stack_t *h);
+void free_stack(void);
 
 /* in --- stacj_opcode you will found --- */
 void handle_push(stack_t **stack, unsigned int line_number);
 void handle_pall(stack_t **stack, unsigned int line_number);
+void handle_pint(stack_t **stack, unsigned int line_number);
 
 #endif
