@@ -76,4 +76,7 @@ void handle_swap(stack_t **stack, unsigned int line_number);
 
 /* in --- more_stack_opcode you will found --- */
 void handle_add(stack_t **stack, unsigned int line_number);
+void handle_sub(stack_t **stack, unsigned int line_number);
+void handle_div(stack_t **stack, unsigned int line_number);
+
 #endif

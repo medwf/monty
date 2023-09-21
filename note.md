@@ -18,4 +18,5 @@
 - fix problem newline and empty line
 - add function handle pint
 - handle nop, and #.
-- handle swap and add 
+- handle add, sub, div
+
