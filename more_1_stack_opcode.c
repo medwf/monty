@@ -31,13 +31,8 @@ void handle_pchar(stack_t **stack, unsigned int line_number)
 void handle_pstr(stack_t **stack, unsigned int line_number)
 {
 	stack_t *prnt = *stack;
+	(void) line_number;
 
-	if (!*stack)
-	{
-		fprintf(stderr, "L%d: can't pstr, stack empty\n", line_number);
-		free_stack(gs.head), free_array(gs.array);
-		exit(EXIT_FAILURE);
-	}
 	while (prnt)
 	{
 		if (!prnt->n || prnt->n < 0 || prnt->n > 127)
