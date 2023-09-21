@@ -93,3 +93,19 @@ void handle_rotr(stack_t **stack, unsigned int line_number)
 	}
 	nav->n = rot_right;
 }
+
+/**
+ * handle_switch - a function that switch between stack and queue.
+ * @stack: a double pointer to linked list
+ * @line_number: an integer represent line number
+ */
+void handle_switch(stack_t **stack, unsigned int line_number)
+{
+	(void)stack;
+	(void)line_number;
+
+	if (strcmp(gs.array[0], "stack") == 0)
+		gs._switch = 0;
+	if (strcmp(gs.array[0], "queue") == 0)
+		gs._switch = 1;
+}

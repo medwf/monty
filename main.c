@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 	else
 		print_error("USAGE: monty file");
 
-	gs.head = NULL, gs.array = NULL;
+	gs.head = NULL, gs.array = NULL, gs._switch = 0;
 	while (fgets(line, sizeof(line), gs.file) != NULL)
 	{
 		line[strlen(line) - 1] = '\0', gs.array = divide_arg(line);

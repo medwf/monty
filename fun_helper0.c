@@ -120,6 +120,8 @@ void process(char **array, unsigned int line_number)
 		{"pstr", handle_pstr},
 		{"rotl", handle_rotl},
 		{"rotr", handle_rotr},
+		{"stack", handle_switch},
+		{"queue", handle_switch},
 		{NULL, NULL},
 	};
 

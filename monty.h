@@ -44,11 +44,13 @@ typedef struct instruction_s
  * @file: a pointer to file.
  * @head: a pointer to linked list.
  * @array: a doule pointer (command process).
+ * @_switch: integer switch stack 0 <=> queue 1.
  */
 typedef struct structure_global
 {
 	FILE *file;
 	int int_to_push;
+	int _switch;
 	stack_t *head;
 	char **array;
 } global_struct;
@@ -86,4 +88,5 @@ void handle_pchar(stack_t **stack, unsigned int line_number);
 void handle_pstr(stack_t **stack, unsigned int line_number);
 void handle_rotl(stack_t **stack, unsigned int line_number);
 void handle_rotr(stack_t **stack, unsigned int line_number);
+void handle_switch(stack_t **stack, unsigned int line_number);
 #endif

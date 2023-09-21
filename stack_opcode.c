@@ -6,7 +6,7 @@
  */
 void handle_push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new = NULL;
+	stack_t *new = NULL, *last_node = NULL;
 	(void)line_number;
 
 	if (!stack)
@@ -18,17 +18,31 @@ void handle_push(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-
 	new->n = gs.int_to_push;
 	new->next = NULL;
 	new->prev = NULL;
 
-	if (*stack)
+	if (gs._switch == 0)
 	{
-		new->next = *stack;
-		(*stack)->prev = new;
+		if (*stack)
+		{
+			new->next = *stack;
+			(*stack)->prev = new;
+		}
+		*stack = new;
 	}
-	*stack = new;
+	if (gs._switch == 1)
+	{
+		last_node = *stack;
+		if (last_node)
+		{
+			while (last_node->next)
+				last_node = last_node->next;
+			new->prev = last_node, last_node->next = new;
+		}
+		else
+			*stack = new;
+	}
 }
 /**
  * handle_pall - a function that print all element.

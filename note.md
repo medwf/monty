@@ -21,5 +21,5 @@
 - handle add, sub, div
 - handle pstr
 - handle rotl
-- handle rotr
+- handle stack = 0 (default) < switch > queue = 1 
 
