@@ -67,11 +67,13 @@ void free_array(char **array);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 void free_stack(stack_t *h);
 
-/* in --- stacj_opcode you will found --- */
+/* in --- stack_opcode you will found --- */
 void handle_push(stack_t **stack, unsigned int line_number);
 void handle_pall(stack_t **stack, unsigned int line_number);
 void handle_pint(stack_t **stack, unsigned int line_number);
 void handle_pop(stack_t **stack, unsigned int line_number);
 void handle_swap(stack_t **stack, unsigned int line_number);
 
+/* in --- more_stack_opcode you will found --- */
+void handle_add(stack_t **stack, unsigned int line_number);
 #endif
