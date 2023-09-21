@@ -44,7 +44,7 @@ void handle_pstr(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * handle_rotl - a function that top element of the stack becomes the last one,
+ * handle_rotl - a function that :top element of the stack becomes the last one
  *   and the second top element of the stack becomes the first one
  * @stack: a double pointer to linked list
  * @line_number: an integer represent line number
@@ -65,4 +65,31 @@ void handle_rotl(stack_t **stack, unsigned int line_number)
 		nav = nav->next;
 	}
 	nav->n = rot_left;
+}
+
+/**
+ * handle_rotr - a function that : The last element of the stack
+ *                          becomes the top element of the stack
+ * @stack: a double pointer to linked list
+ * @line_number: an integer represent line number
+ */
+void handle_rotr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *nav = *stack;
+	int rot_right = 0;
+	(void)line_number;
+
+	if (!nav || !nav->next)
+		return;
+
+	while (nav->next)
+		nav = nav->next;
+	rot_right = nav->n;
+
+	while (nav->prev)
+	{
+		nav->n = nav->prev->n;
+		nav = nav->prev;
+	}
+	nav->n = rot_right;
 }

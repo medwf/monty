@@ -21,4 +21,5 @@
 - handle add, sub, div
 - handle pstr
 - handle rotl
+- handle rotr
 
