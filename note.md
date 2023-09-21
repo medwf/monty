@@ -20,4 +20,5 @@
 - handle nop, and #.
 - handle add, sub, div
 - handle pstr
+- handle rotl
 

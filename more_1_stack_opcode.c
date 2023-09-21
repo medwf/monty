@@ -31,7 +31,7 @@ void handle_pchar(stack_t **stack, unsigned int line_number)
 void handle_pstr(stack_t **stack, unsigned int line_number)
 {
 	stack_t *prnt = *stack;
-	(void) line_number;
+	(void)line_number;
 
 	while (prnt)
 	{
@@ -41,4 +41,28 @@ void handle_pstr(stack_t **stack, unsigned int line_number)
 		prnt = prnt->next;
 	}
 	fprintf(stdout, "\n");
+}
+
+/**
+ * handle_rotl - a function that top element of the stack becomes the last one,
+ *   and the second top element of the stack becomes the first one
+ * @stack: a double pointer to linked list
+ * @line_number: an integer represent line number
+ */
+void handle_rotl(stack_t **stack, unsigned int line_number)
+{
+	stack_t *nav = *stack;
+	int rot_left = 0;
+	(void)line_number;
+
+	if (!nav || !nav->next)
+		return;
+
+	rot_left = nav->n;
+	while (nav->next)
+	{
+		nav->n = nav->next->n;
+		nav = nav->next;
+	}
+	nav->n = rot_left;
 }
