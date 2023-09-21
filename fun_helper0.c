@@ -114,6 +114,8 @@ void process(char **array, unsigned int line_number)
 		{"add", handle_add},
 		{"sub", handle_sub},
 		{"div", handle_div},
+		{"mul", handle_mul},
+		{"mod", handle_mod},
 		{NULL, NULL},
 	};
 
