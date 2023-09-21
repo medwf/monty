@@ -53,6 +53,12 @@ void handle_div(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
+	if ((*stack)->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", line_number);
+		free_stack(gs.head), free_array(gs.array);
+		exit(EXIT_FAILURE);
+	}
 	(*stack)->next->n /= (*stack)->n;
 	*stack = (*stack)->next;
 	free((*stack)->prev);
