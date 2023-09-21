@@ -117,6 +117,7 @@ void process(char **array, unsigned int line_number)
 		{"mul", handle_mul},
 		{"mod", handle_mod},
 		{"pchar", handle_pchar},
+		{"pstr", handle_pstr},
 		{NULL, NULL},
 	};
 

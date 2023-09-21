@@ -19,4 +19,5 @@
 - add function handle pint
 - handle nop, and #.
 - handle add, sub, div
-- handle pchar 
+- handle pstr
+

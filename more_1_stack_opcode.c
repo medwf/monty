@@ -21,3 +21,29 @@ void handle_pchar(stack_t **stack, unsigned int line_number)
 	}
 	fprintf(stdout, "%c\n", (*stack)->n);
 }
+
+/**
+ * handle_pstr - a function that print string start
+ *                from last last element to stop value 0.
+ * @stack: a double pointer to linked list
+ * @line_number: an integer represent line number
+ */
+void handle_pstr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *prnt = *stack;
+
+	if (!*stack)
+	{
+		fprintf(stderr, "L%d: can't pstr, stack empty\n", line_number);
+		free_stack(gs.head), free_array(gs.array);
+		exit(EXIT_FAILURE);
+	}
+	while (prnt)
+	{
+		if (!prnt->n || prnt->n < 0 || prnt->n > 127)
+			break;
+		fprintf(stdout, "%c", prnt->n);
+		prnt = prnt->next;
+	}
+	fprintf(stdout, "\n");
+}
