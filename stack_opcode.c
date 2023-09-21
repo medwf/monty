@@ -49,7 +49,7 @@ void handle_pall(stack_t **stack, unsigned int line_number)
 	}
 }
 /**
- * handle_pint - a function that print all element.
+ * handle_pint - a function that print last element.
  * @stack: a double pointer to linked list
  * @line_number: an integer represent line number
  */
@@ -64,7 +64,7 @@ void handle_pint(stack_t **stack, unsigned int line_number)
 	fprintf(stdout, "%d\n", (*stack)->n);
 }
 /**
- * handle_pop - a function that pushes an element to the stack
+ * handle_pop - a function that pop an element in the stack
  * @stack: a double pointer to linked list
  * @line_number: an integer represent line number
  */
@@ -88,4 +88,23 @@ void handle_pop(stack_t **stack, unsigned int line_number)
 		free((*stack)->prev);
 		(*stack)->prev = NULL;
 	}
+}
+/**
+ * handle_swap - a function that swap two elements in the stack
+ * @stack: a double pointer to linked list
+ * @line_number: an integer represent line number
+ */
+void handle_swap(stack_t **stack, unsigned int line_number)
+{
+	int swap = 0;
+
+	if (!*stack || !(*stack)->next)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		free_stack(gs.head), free_array(gs.array);
+		exit(EXIT_FAILURE);
+	}
+	swap = (*stack)->n;
+	(*stack)->n = (*stack)->next->n;
+	(*stack)->next->n = swap;
 }

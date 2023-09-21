@@ -1,10 +1,9 @@
 push 1
 push 2
 
-nop
-push 3
-pall
-# dddddddd
 pint
+push 3
+pint
+swap
 pop
 pall

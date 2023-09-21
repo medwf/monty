@@ -110,6 +110,7 @@ void process(char **array, unsigned int line_number)
 		{"pall", handle_pall},
 		{"pint", handle_pint},
 		{"pop", handle_pop},
+		{"swap", handle_swap},
 		{NULL, NULL},
 	};
 
